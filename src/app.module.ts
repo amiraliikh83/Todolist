@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './Auth/auth.module';
 import { RegisterModule } from './Register/register.module';
-import { HandlerModule } from './handler/handler.module';
+import { HandlerModule } from './Main/Handler/handler.module';
 
 @Module({
   imports: [AuthModule, RegisterModule, HandlerModule],
