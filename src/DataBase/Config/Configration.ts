@@ -4,13 +4,13 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const configuration: sql.config = {
-  server: process.env.DB_SERVER,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
+  server: process.env.DB_SERVER || 'localhost',
+  user: process.env.DB_USER || 'sa', // Use 'sa' user
+  password: process.env.DB_PASSWORD || 'amirali048',
+  database: process.env.DB_DATABASE || 'TodoList',
   requestTimeout: 15000,
   options: {
-    encrypt: true,
+    encrypt: false,
     trustServerCertificate: true, // Accept self-signed certificates
   },
 };
