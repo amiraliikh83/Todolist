@@ -4,10 +4,10 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const configuration: sql.config = {
-  server: process.env.DB_SERVER || 'localhost',
-  user: process.env.DB_USER || 'sa', // Use 'sa' user
-  password: process.env.DB_PASSWORD || 'amirali048',
-  database: process.env.DB_DATABASE || 'TodoList',
+  server: 'localhost',
+  user: 'sa', // Use 'sa' user
+  password: 'amirali048',
+  database: 'TodoList',
   requestTimeout: 15000,
   options: {
     encrypt: false,

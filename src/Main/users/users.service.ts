@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { GetDatabaseRequest } from 'src/DataBase/connection';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { CrudUser } from 'src/DTO/CrudUser.dto';
 
 @Injectable()
@@ -8,7 +8,8 @@ export class UsersService {
   async register(CrudUser: CrudUser): Promise<any> {
     try {
       const request = await GetDatabaseRequest();
-      const hashedPassword = await bcrypt.hash(CrudUser.Password, 10);
+
+      const hashedPassword = bcrypt.hashSync(CrudUser.Password, 10);
 
       // Input parameters
       request.input('UserID', 0);
@@ -26,7 +27,7 @@ export class UsersService {
         };
       }
     } catch (err) {
-      throw new Error('Error registering user: ' + err.message);
+      throw new Error(`Error registering user:  ${err.message}`);
     }
   }
 }

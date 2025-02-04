@@ -1,4 +1,4 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CrudUser } from 'src/DTO/CrudUser.dto';
 
@@ -6,7 +6,7 @@ import { CrudUser } from 'src/DTO/CrudUser.dto';
 export class UsersController {
   constructor(private readonly UsersService: UsersService) {}
   @Post('create')
-  async CreateUsers(CrudUsers: CrudUser) {
+  async CreateUsers(@Body() CrudUsers: CrudUser) {
     try {
       return this.UsersService.register(CrudUsers);
     } catch (err) {
