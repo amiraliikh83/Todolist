@@ -3,11 +3,17 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './Auth/auth.module';
 import { HandlerModule } from './Main/Handler/handler.module';
-import { JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from './Main/users/users.module';
+import jwtModuleSource from './utils/JwtModule';
 
 @Module({
-  imports: [AuthModule, HandlerModule, JwtService, UsersModule],
+  imports: [
+    JwtModule.register(jwtModuleSource),
+    HandlerModule,
+    UsersModule,
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

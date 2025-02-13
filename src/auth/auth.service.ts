@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { GetDatabaseRequest } from 'src/DataBase/connection';
 import * as Bcrypt from 'bcrypt';
@@ -11,7 +6,7 @@ import * as Bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
   constructor(private jwtService: JwtService) {}
-  async ValidateLogin(UserName: string, Password: string) {
+  async ValidateLogin(UserName: string, Password: string): Promise<any> {
     try {
       const LoginRequest = await GetDatabaseRequest();
       const result = await LoginRequest.input('UserName', UserName).execute(
@@ -21,29 +16,27 @@ export class AuthService {
       const ID = user.ID;
       const userName = user.UserName;
       const hashedPassword = user.Password;
-      const userGroupeID = user.UserGroupId;
       const passwordMatch = await Bcrypt.compare(Password, hashedPassword);
       if (!passwordMatch) {
         throw new HttpException('Invalid password', HttpStatus.UNAUTHORIZED);
       }
-      const payload = { ID, userName, userGroupeID };
+      const payload = { ID, userName };
       const token = this.jwtService.sign(payload, {
         expiresIn: process.env.TIME_AUTH,
       });
 
-      if (UserName === user.UserName && Password === user.Password) {
+      if (passwordMatch) {
         return {
           success: true,
           message: 'Login successful',
           token,
           statusCode: HttpStatus.OK,
-          userGroupeID,
         };
       }
     } catch (err) {
       console.error('Error validating user:', err.message);
       throw new HttpException(
-        'CodeMeli or Password is incorrect',
+        'UserName or Password is incorrect',
         HttpStatus.UNAUTHORIZED,
       );
     }
