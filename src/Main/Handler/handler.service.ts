@@ -1,4 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class HandlerService {}
+export class HandlerService {
+    async CreateTodo(){
+        
+    }
+}

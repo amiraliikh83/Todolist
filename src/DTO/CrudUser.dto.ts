@@ -1,5 +1,9 @@
+import { IsString } from 'class-validator';
 export class CrudUser {
-  readonly UserName: string;
-  readonly Password: string;
-  readonly Email: string;
+  @IsString()
+  UserName: string;
+  @IsString()
+  Password: string;
+  @IsString()
+  Email: string;
 }
