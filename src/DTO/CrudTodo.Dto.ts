@@ -16,5 +16,5 @@ export class CrudTodo {
   TodoDescription: string;
 
   @IsArray()
-  TodoItem: string[];
+  TodoItem: [];
 }
